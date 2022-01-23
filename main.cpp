@@ -75,9 +75,10 @@ public:
             for (int i = 0; i < orders.size(); ++i) {
                 std::cout << orders[i]->getNameDish() << std::endl;
             }
-            access.unlock();
+
             std::cout << std::endl;
         }
+        access.unlock();
     }
 
     void cooking() {
@@ -116,16 +117,16 @@ public:
     }
 
     void delivery(int number) {
-        std::cout << "#" << number << "----------Courier: delivery-------------" << std::endl;
         access.lock();
+        std::cout << "#" << number << "----------Courier: delivery-------------" << std::endl;
         for (int i = 0; i < ordersToDelivery.size(); ++i) {
             std::cout << ordersToDelivery[i]->getNameDish() << std::endl;
             delete ordersToDelivery[i];
             ordersToDelivery[i] = nullptr;
         }
         ordersToDelivery.clear();
-        access.unlock();
         std::cout << std::endl;
+        access.unlock();
     }
 
     void close() {
